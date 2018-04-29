@@ -8,13 +8,14 @@ def Gibbet_game():
     print("У вас есть пять попыток...")    
     lifes = 5
 
+    word_state = list("-")
     set_Of_Words = ["Слово","Сковорода",'Работа',"Ноутбук","Лямбда","Парсер"]
-    while True:
+    while (len(set_Of_Words) > 0) or (check_game_state(word_state)):
         print("Игра началась! Выбираем слово...")
         np.random.shuffle(set_Of_Words)
         ask_word = set_Of_Words.pop()
         word_state = list("-" * len(ask_word))
-        print("-" * len(ask_word))
+        print(word_state)
         while (lifes > 0) and (check_game_state(word_state)):
             letter = input("Введите букву: ")
             if (ask_word.count(letter) == 0):
