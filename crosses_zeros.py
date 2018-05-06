@@ -12,14 +12,22 @@ def X0X_game():
         print(game_field['row2'])
         print(game_field['row3'])
 
-        player_move[0] = int(input("Ваш ход укажите ряд:>"))
-        player_move[1] = int(input("Ваш ход укажите столбец:>"))
-
+        while True:
+            player_move[0] = int(input("Ваш ход укажите ряд:>"))
+            player_move[1] = int(input("Ваш ход укажите столбец:>"))
+            if check_oncorrect_move(game_field, player_move):
+                break
+            else:
+                print("Некоректный ход")
         game_field = change_game_field(game_field, player_move, "X")
         if check_game_status(game_field, "X"):
             break
-        ai_move[0] = random.randint(1,3)
-        ai_move[1] = random.randint(1,3)
+
+        while True:
+            ai_move[0] = random.randint(1,3)
+            ai_move[1] = random.randint(1,3)
+            if check_oncorrect_move(game_field, ai_move):
+                break
 
         game_field = change_game_field(game_field, ai_move, "0")
         if check_game_status(game_field, "0"):
@@ -66,10 +74,19 @@ def change_game_field(game_field, player_move, turn):
         game_field['diag1'][2] = turn
     return game_field
 
+def check_oncorrect_move(game_field, player_move):
+    line = "row" + str(player_move[0])
+    if game_field[line][player_move[1] - 1] != '_':
+        return False
+    else:
+        return True
 
 def check_game_status(game_field, turn):
     for line in game_field:
         if (game_field[line].count('0') == 3)  or (game_field[line].count('X') == 3):
+            print(game_field['row1'])
+            print(game_field['row2'])
+            print(game_field['row3'])
             print("Выиграл " + turn)
             return True
     return False
