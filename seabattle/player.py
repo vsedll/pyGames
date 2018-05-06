@@ -9,8 +9,9 @@ class Player(object):
         self.ships = list()
 
     def to_place_ship(self, ship):
-        ship.location = list(input('Введите координаты размещения коробля: '))
+        ship.set_location()
         self.ships.append(ship) 
+
 
 class Shot(object):
     @staticmethod

@@ -1,5 +1,16 @@
+import gamefield, player
+
 class Game(object):
-    player_obj = None
+    player_obj = list()
+    gamefield_obj = gamefield.Game_Field()
+    ship_obj = list()
+    def __init__(self):
+        p1 = player.Player('First Player', True)
+        self.player_obj.append(p1)
+        p2 = player.Player('Second Player', False)
+        self.player_obj.append(p2)
+
+        
 
 
 class Game_Field(object):
@@ -24,8 +35,15 @@ class Game_Field(object):
 class BaseShip(object):
     belong_to_player = None
     location = None
-    def __init__(self, size, size_to_place,belong_to_player,location):
+    def __init__(self, size, size_to_place,belong_to_player):
         self.size = size
         self.size_to_place = size_to_place 
         self.belong_to_player = belong_to_player
-        self.location = location
+
+
+    def set_location(self):
+        self.location = list()
+        print('Количество палуб у коробля {}'.format(self.size))
+        for i in range(0,self.size):         
+            coords = int(input('Введите координаты палубы ' + str(i + 1) + ":>"))
+            self.location.append(coords)
